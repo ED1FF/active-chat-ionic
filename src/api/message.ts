@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ENDPOINTS } from './../constants/endpoints';
-import { HttpClientModule } from '@angular/common/http';
-import { Http, HttpModule } from '@angular/http';
+import { HttpModule } from '@angular/http';
 
 @Injectable()
 export class MessageAPI {
@@ -14,6 +13,6 @@ export class MessageAPI {
   }
 
   create(params) {
-    return this.http.post(`${ENDPOINTS.API_ENDPOINT}/messages`, params)
+    return this.http.post(`${ENDPOINTS.API_ENDPOINT}/messages`, params);
   }
 }
