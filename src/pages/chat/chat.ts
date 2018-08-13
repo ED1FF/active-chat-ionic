@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ng2Cable } from 'ng2-cable/index';
+import { Content } from 'ionic-angular';
 import { MessageAPI } from '../../api/message';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Broadcaster } from 'ng2-cable/index';
@@ -13,6 +14,7 @@ export class ChatPage implements OnInit {
   messages:any = [];
   newMessageForm:FormGroup;
   message:any = {};
+  @ViewChild(Content) content: Content;
 
   constructor(private ng2cable: Ng2Cable,
               private messageAPI: MessageAPI,
@@ -26,17 +28,13 @@ export class ChatPage implements OnInit {
     this.broadcaster.on<string>('CreateMessage').subscribe(
       message => {
         this.messages.push(message);
-        console.log(message);
       }
     );
   }
 
   ngOnInit() {
+    this.content.scrollToBottom();
     this.loadForm();
-  }
-
-  loadMessages() {
-    this.messageAPI.query().subscribe(this.setMessages);
   }
 
   loadForm() {
@@ -46,11 +44,15 @@ export class ChatPage implements OnInit {
     });
   }
 
+  loadMessages() {
+    this.messageAPI.query().subscribe(this.setMessages);
+  }
+
   setMessages = (data) => {
     this.messages = data;
   }
 
   submit() {
-    this.messageAPI.create({message: this.newMessageForm.value}).subscribe()
+    this.messageAPI.create({message: this.newMessageForm.value}).subscribe();
   }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ENDPOINTS } from '../constants/endpoints'
 
 import { Ng2Cable } from 'ng2-cable/index';
 import { ChatPage }  from "./../pages/chat/chat";
@@ -22,6 +23,6 @@ export class MyApp {
       splashScreen.hide();
     });
 
-    this.ng2cable.subscribe('http://localhost:3000/cable', 'ChatChannel')
+    this.ng2cable.subscribe(ENDPOINTS.CABLE_ENDPOINT, 'ChatChannel');
   }
 }
