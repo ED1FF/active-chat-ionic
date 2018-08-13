@@ -8,5 +8,21 @@
 
 
 <ion-content padding>
+  <div *ngFor="let message of messages">
+    <div>
+      {{message.text}}
+    </div>
+  </div>
 
+  <form [formGroup]="newMessageForm" (ngSubmit)="submit();">
+    <ion-item>
+      <ion-label color="primary" stacked>Username</ion-label>
+      <ion-textarea formControlName="user_name"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Text</ion-label>
+      <ion-textarea formControlName="text"></ion-textarea>
+    </ion-item>
+    <button ion-button type="submit" block [disabled]="newMessageForm.invalid">Send Message</button>
+  </form>
 </ion-content>
